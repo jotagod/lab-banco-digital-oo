@@ -7,6 +7,7 @@ public abstract class Conta implements IConta {
 	protected int agencia;
 	protected int numero;
 	protected double saldo;
+	protected double divida;
 	protected Cliente cliente;
 
 	public Conta(Cliente cliente) {
@@ -30,6 +31,13 @@ public abstract class Conta implements IConta {
 		this.sacar(valor);
 		contaDestino.depositar(valor);
 	}
+	
+	@Override
+	public void emprestimo(double valor) {
+		this.depositar(valor);
+		this.divida += valor;
+			
+	}
 
 	public int getAgencia() {
 		return agencia;
@@ -42,11 +50,17 @@ public abstract class Conta implements IConta {
 	public double getSaldo() {
 		return saldo;
 	}
+	
+		public double getDivida() {
+			return divida;
+		}
 
 	protected void imprimirInfosComuns() {
 		System.out.println(String.format("Titular: %s", this.cliente.getNome()));
 		System.out.println(String.format("Agencia: %d", this.agencia));
 		System.out.println(String.format("Numero: %d", this.numero));
 		System.out.println(String.format("Saldo: %.2f", this.saldo));
+		System.out.println(String.format("Dívida: %.2f", this.divida));
 	}
+
 }
